@@ -8,6 +8,7 @@ import TrelloList from "../components/TrelloList";
 import TrelloCreate from "../components/TrelloCreate";
 import { setActiveBoard } from "../redux/actions/boardActions";
 import { sort } from "../redux/actions/listsActions";
+import Navbar from "../components/Navbar";
 
 const ListsContainer = styled.div`
   display: flex;
@@ -16,7 +17,6 @@ const ListsContainer = styled.div`
 `;
 
 class TrelloBoard extends PureComponent {
-  
   componentDidMount() {
     // set active trello board here
     const { boardID } = this.props.match.params;
@@ -59,6 +59,7 @@ class TrelloBoard extends PureComponent {
 
     return activeBoard ? (
       <>
+        <Navbar />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Link style={{ margin: "10px 0 0 10px" }} to="/board">
             Go Back

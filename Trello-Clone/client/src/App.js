@@ -10,7 +10,7 @@ class App extends PureComponent {
   render() {
     return (
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="container-fluid my-2">
           <Switch>
             <Route exact path="/" component={LandingPage} />
