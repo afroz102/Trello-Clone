@@ -1,5 +1,6 @@
 const ListModel = require('../models/list.model');
 const BoardModel = require('../models/board.model');
+const CardModel = require('../models/card.model');
 exports.createList = async (req, res) => {
     try {
         console.log('req.body: ', req.body);
@@ -48,7 +49,7 @@ exports.editListTitle = async (req, res) => {
             }
             // console.log('list found:', list);
             list.title = newTitle;
-            
+
             list.save((err, updatedList) => {
                 if (err) {
                     console.log("error while updating list title: ", err);
@@ -66,7 +67,15 @@ exports.editListTitle = async (req, res) => {
 
 exports.deleteList = async (req, res) => {
     try {
-
+        const listId = req.body.listId;
+        const deleted = await ListModel.findByIdAndRemove(listId);
+        const cardDeleted = await CardModel.findOneAndRemove({ listId }, function (err, response) {
+            if (err) {
+                console.log("can't delete from card: ", err);
+            }
+            console.log('response: ', response);
+        })
+        return res.json({ deleted });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
