@@ -36,10 +36,39 @@ exports.createList = async (req, res) => {
 
 
 
-exports.updateListTitle = async (req, res) => {
+exports.editListTitle = async (req, res) => {
+    try {
+        // console.log('req.body: ', req.body);
+        const listId = req.body.listId;
+        const newTitle = req.body.newTitle;
 
+        await ListModel.findById(listId, async function (err, list) {
+            if (err) {
+                console.log("Error in finding list while updating list: ", err);
+            }
+            // console.log('list found:', list);
+            list.title = newTitle;
+            
+            list.save((err, updatedList) => {
+                if (err) {
+                    console.log("error while updating list title: ", err);
+                }
+                // console.log("updated doc: ", updatedList);
+                return res.json({ updatedList });
+            });
+        });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error');
+    }
 }
 
 exports.deleteList = async (req, res) => {
+    try {
 
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error');
+    }
 }

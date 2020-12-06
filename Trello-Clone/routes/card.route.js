@@ -11,7 +11,7 @@ const {
 
 
 router.post('/create', createCard);
-router.post('/update', updateCardText);
+router.post('/edit', updateCardText);
 router.post('/delete', deleteCard);
 
 module.exports = router;
